@@ -17,7 +17,7 @@ class SisdecOccurrencesController extends AppController {
      */
     public $components = array('Paginator', 'RequestHandler');
     public $helpers = array('Js' => array('Jquery'));
-
+    
     /**
      * index method
      *
@@ -63,7 +63,7 @@ class SisdecOccurrencesController extends AppController {
      *
      * @return void
      */
-    public function add() {
+    public function add() {    	
         if ($this->request->is('post')) {
             $this->SisdecOccurrence->create();
             if ($this->SisdecOccurrence->saveAssociated($this->request->data)) {
@@ -96,11 +96,11 @@ class SisdecOccurrencesController extends AppController {
     public function listar() {
         $this->layout = false;
         if ($this->RequestHandler->isAjax()) {
-            $cidades = $this->SisdecOccurrence->SisdecNeighborhood->find('list', array('conditions' => array(
+            $bairros = $this->SisdecOccurrence->SisdecNeighborhood->find('list', array('conditions' => array(
                     'sisdec_place_id' => $this->params['url']['placeId']),
                 'recursive' => -1));
             //debug($bairros);
-            $this->set(compact('cidades'));
+            $this->set(compact('bairros'));
         }
     }
 

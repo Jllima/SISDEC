@@ -1,6 +1,6 @@
 <?php 
 
-if(isset($cidades)) {
-    echo $this->Js->object($cidades);
+if(isset($bairros)) {
+    echo $this->Js->object($bairros);
 }
 ?>
