@@ -30,6 +30,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this -> Html -> css('bootstrap.css');
 		echo $this -> Html -> css('dt/DT_bootstrap.css');
 		
+                echo $this -> Html -> css('plugins/font-awesome/css/font-awesome.min.css');
 		echo $this -> Html -> css('bootstrap.css.map');
 		echo $this -> Html -> css('jquery.ui.theme');
 		echo $this -> Html -> css('jquery.ui.tooltip');
@@ -53,7 +54,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	<body>
 		<div id="container">
 			<div class="col-occurrence">
-				<h1>SISDEC</h1>
+                            <h1><?php echo $this->Html->image('df70.png');?> SISDEC</h1>
 			</div>
             <nav class="navbar navbar-default" role="navigation">
 					<div class="container-fluid">
@@ -65,20 +66,20 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 							</button>
-							<a class="navbar-brand" href="/estagio/start/">Menu</a>
+							<a class="navbar-brand" href="/estagio/start/"><i class="fa fa-home"></i> Home</a>
 						</div>
 
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav">
 							    <li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Ocorrência<b class="caret"></b></a>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-folder-open"></i> Ocorrência<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 										<li>
-											<?php echo $this -> Html -> link(__('Cadastrar'), array('controller'=>'sisdec_occurrences','action' => 'add')); ?>
+											<?php echo $this -> Html -> link(__('<i class="fa fa-pencil"></i> Cadastrar'), array('controller'=>'sisdec_occurrences','action' => 'add'),array('escape' => false)); ?>
 										</li>
 										<li>
-											<?php echo $this -> Html -> link(__('Pesquisar'), array('controller'=>'sisdec_occurrences','action' => 'index')); ?>
+											<?php echo $this -> Html -> link(__('<i class="fa fa-search"></i> Pesquisar'), array('controller'=>'sisdec_occurrences','action' => 'index'),array('escape' => false)); ?>
 										</li>
 								    </ul>
 								</li>
@@ -125,11 +126,9 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 								</li>
 							</ul>
 							<ul class="nav navbar-nav navbar-right">
-								<li>
-									<a href="#">Link</a>
-								</li>
+								
 								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Usuario <b class="caret"></b></a>
 									<ul class="dropdown-menu">
 										<li>
 											<a href="#">Action</a>
