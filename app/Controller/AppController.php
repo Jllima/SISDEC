@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Application level Controller
  *
@@ -18,7 +19,6 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('Controller', 'Controller');
 
 /**
@@ -31,5 +31,62 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-	  public $components = array('DebugKit.Toolbar','Session');
+
+    public $components = array('DebugKit.Toolbar', 'Session', 'Auth');
+
+//public $helpers = array('Html', 'Form', 'Session');
+
+    public function beforeFilter() {
+        //
+        $this->Auth->authenticate = array(
+            AuthComponent::ALL => array(
+                'userModel' => 'User',
+                'fields' => array(
+                    'username' => 'username',
+                ),
+                'scope' => array(
+                    //define o escorpo do usuario, se ele estar ou apto a logar no sistema
+                    'User.status' => 1,
+                ),
+            ),
+            'Form',
+        );
+        //Setado como controller, utiliza o metodo isAuthorized para saber quando o usuario tem acesso permitido
+        $this->Auth->authorize = 'controller';
+
+        //define o controller e a action para login
+        $this->Auth->loginAction = array(
+            'plugin' => null,
+            'controller' => 'users',
+            'action' => 'login',
+        );
+
+        //define o controller e a action apos o logout do usuario
+        $this->Auth->logoutRedirect = array(
+            'plugin' => null,
+            'controller' => 'users',
+            'action' => 'login',
+        );
+
+        //define o controller e a action para o login do usuario
+        $this->Auth->loginRedirect = array(
+            'plugin' => null,
+            'controller' => 'users',
+            'action' => 'index',
+        );
+
+        $this->Auth->authError = __('Você não possui autorização para executar esta ação.');
+
+        //$this->Auth->allow('index');
+        $this->Auth->allowedActions = array('display');
+    }
+
+    public function isAuthorized($user) {
+        //Somente o admin tem acesso a /admin/controller/action admin_add
+        if ($user['role_id'] == 1) { //!empty($this->request->params['admin']
+            return true; //$user['role_id'] == 1
+        }
+        return false;  //!empty($user)
+    }
+
 }

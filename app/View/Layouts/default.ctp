@@ -128,21 +128,12 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 							<ul class="nav navbar-nav navbar-right">
 								
 								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Usuario <b class="caret"></b></a>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $this->Session->read('Auth.User.username'); ?> <b class="caret"></b></a>
 									<ul class="dropdown-menu">
 										<li>
-											<a href="#">Action</a>
+											<?php echo $this -> Html -> link(__('Sair'), array('controller' => 'users', 'action' => 'logout')); ?>
 										</li>
-										<li>
-											<a href="#">Another action</a>
-										</li>
-										<li>
-											<a href="#">Something else here</a>
-										</li>
-										<li class="divider"></li>
-										<li>
-											<a href="#">Separated link</a>
-										</li>
+										
 									</ul>
 								</li>
 							</ul>
