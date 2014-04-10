@@ -30,6 +30,7 @@ class UsersController extends AppController {
     }
 
     public function login() {
+        //$this->layout = false;
         $this->set('title_for_layout', __('Log in'));
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
@@ -53,6 +54,12 @@ class UsersController extends AppController {
 
     public function admin_index() {
         
+    }
+    public function listar(){
+        $this->User->recursive = -1;
+        $users = $this->User->find('all');
+        //debug($users);
+        $this->set(compact('users'));
     }
 
     public function index() {

@@ -15,7 +15,7 @@ class SisdecOccurrencesController extends AppController {
      *
      * @var array
      */
-    public $components = array('Paginator', 'RequestHandler');
+    public $components = array('Paginator');
     public $helpers = array('Js' => array('Jquery'));
     
     /**
@@ -23,6 +23,14 @@ class SisdecOccurrencesController extends AppController {
      *
      * @return void
      */
+    
+    public function choose(){
+      // find sisdecSituations
+      $situations = $this->SisdecOccurrence->SisdecSituation->find('list');
+      //debug($situations);
+      $this->set(compact('situations'));
+    }
+    
     public function index() {
         /*
           $this->loadModel('SisdecRequester');
@@ -67,8 +75,8 @@ class SisdecOccurrencesController extends AppController {
         if ($this->request->is('post')) {
             $this->SisdecOccurrence->create();
             if ($this->SisdecOccurrence->saveAssociated($this->request->data)) {
-                $this->Session->setFlash(__('The sisdec occurrence has been saved.'));
-                return $this->redirect(array('action' => 'index'));
+                $this->Session->setFlash(__('A ocorrência foi cadastarda com sucesso!'));
+                return $this->redirect(array('action' => 'add'));
             } else {
                 $this->Session->setFlash(__('The sisdec occurrence could not be saved. Please, try again.'));
             }

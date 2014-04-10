@@ -32,7 +32,7 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
-    public $components = array('DebugKit.Toolbar', 'Session', 'Auth');
+    public $components = array('DebugKit.Toolbar', 'Session', 'Auth','RequestHandler');
 
 //public $helpers = array('Html', 'Form', 'Session');
 
