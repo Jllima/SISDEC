@@ -7,7 +7,7 @@ $(document).ready(function() {
                 if (bairros != null)
                     $("#neighborhood").prop("disabled", false);
                 $('#neighborhood').hide();
-                popularListaDeCidades(bairros)
+                popularListaDeCidades(bairros);
             });
         } else
             popularListaDeCidades(null);

@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 /**
  * SisdecOccurrences Controller
- *
+ *  
  * @property SisdecOccurrence $SisdecOccurrence
  * @property PaginatorComponent $Paginator
  */
@@ -15,22 +15,64 @@ class SisdecOccurrencesController extends AppController {
      *
      * @var array
      */
+
     public $components = array('Paginator');
     public $helpers = array('Js' => array('Jquery'));
-    
+
     /**
      * index method
      *
      * @return void
      */
-    
-    public function choose(){
-      // find sisdecSituations
-      $situations = $this->SisdecOccurrence->SisdecSituation->find('list');
-      //debug($situations);
-      $this->set(compact('situations'));
+    public function search() {
+        // find sisdecSituations
+        $situations = $this->SisdecOccurrence->SisdecSituation->find('list');
+        //debug($situations);
+        $this->set(compact('situations'));
     }
-    
+
+    //action para resultado da requisição ajax da action search 
+    public function resultSearch() {
+        $this->layout = false;
+        if ($this->RequestHandler->isAjax()) {
+            $this->SisdecOccurrence->recursive = 0;
+            $options = array(
+                'conditions' => array('sisdec_situation_id' => $this->params['url']['id']),
+                'fields' => array('SisdecOccurrence.protocolo', 'SisdecOccurrence.endereco_occurrence', 'SisdecNeighborhood.nome_neighborhood', 'SisdecSituation.status'));
+            $ocurrences = $this->SisdecOccurrence->find('all', $options);
+
+
+            $this->set(compact('ocurrences'));
+        }
+    }
+
+    // metodo para adicionar dinamicamente os bairros
+    public function listar() {
+        $this->layout = false;
+        if ($this->RequestHandler->isAjax()) {
+            $bairros = $this->SisdecOccurrence->SisdecNeighborhood->find('list', array('conditions' => array(
+                    'sisdec_place_id' => $this->params['url']['placeId']),
+                'recursive' => -1));
+            //debug($bairros);
+            $this->set(compact('bairros'));
+        }
+    }
+
+    //testando requisição ajax, com retorno em json
+    public function teste2() {
+        $this->layout = false;
+        if ($this->RequestHandler->isAjax()) {
+            $this->SisdecOccurrence->recursive = 0;
+            $options = array(
+                'conditions' => array('sisdec_situation_id' => $this->params['url']['situationId']),
+                'fields' => array('SisdecOccurrence.protocolo', 'SisdecOccurrence.endereco_occurrence', 'SisdecNeighborhood.nome_neighborhood', 'SisdecSituation.status'));
+            $ocurrences = $this->SisdecOccurrence->find('all', $options);
+
+
+            $this->set(compact('ocurrences'));
+        }
+    }
+
     public function index() {
         /*
           $this->loadModel('SisdecRequester');
@@ -40,7 +82,7 @@ class SisdecOccurrencesController extends AppController {
           'foreignKey' => false,
           'conditions' => array('SisdecRequester.sisdec_occurrence_id = SisdecOccurrence.id')
           )))); */
-
+        //$this->layout = false;
         $this->SisdecOccurrence->recursive = 0;
         $options = array('fields' => array('SisdecOccurrence.protocolo', 'SisdecOccurrence.endereco_occurrence', 'SisdecNeighborhood.nome_neighborhood', 'SisdecSituation.status'));
         $ocurrences = $this->SisdecOccurrence->find('all', $options);
@@ -71,7 +113,7 @@ class SisdecOccurrencesController extends AppController {
      *
      * @return void
      */
-    public function add() {    	
+    public function add() {
         if ($this->request->is('post')) {
             $this->SisdecOccurrence->create();
             if ($this->SisdecOccurrence->saveAssociated($this->request->data)) {
@@ -98,18 +140,6 @@ class SisdecOccurrencesController extends AppController {
         $sisdecNeighborhoods = $this->SisdecOccurrence->SisdecNeighborhood->find('list');
 
         $this->set(compact('sisdecTipologies', 'sisdecPlaces', 'sisdecSituations', 'sisdecSources', 'sisdecNeighborhoods'));
-    }
-
-    // metodo para adicionar dinamicamente os bairros
-    public function listar() {
-        $this->layout = false;
-        if ($this->RequestHandler->isAjax()) {
-            $bairros = $this->SisdecOccurrence->SisdecNeighborhood->find('list', array('conditions' => array(
-                    'sisdec_place_id' => $this->params['url']['placeId']),
-                'recursive' => -1));
-            //debug($bairros);
-            $this->set(compact('bairros'));
-        }
     }
 
     /**
