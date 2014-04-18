@@ -30,7 +30,7 @@ class UsersController extends AppController {
     }
 
     public function login() {
-        //$this->layout = false;
+        $this->layout = false;
         $this->set('title_for_layout', __('Log in'));
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {

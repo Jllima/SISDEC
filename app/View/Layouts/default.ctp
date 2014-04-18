@@ -53,7 +53,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
     <body>
         <div id="container">
             <div class="col-occurrence">
-                <h1><?php echo $this->Html->image('df70.png'); ?> SISDEC</h1>
+                <h1><?php echo $this->Html->image('df5_70.png'); ?></h1>
             </div>
             <nav class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
@@ -130,7 +130,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $this->Session->read('Auth.User.username'); ?> <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <?php echo $this->Html->link(__('Sair'), array('controller' => 'users', 'action' => 'logout')); ?>
+                                        <?php echo $this->Html->link(__('<i class="fa fa-sign-out"></i>   logout'), array('controller' => 'users', 'action' => 'logout'),array('escape' => false)); ?>
                                     </li>
 
                                 </ul>
