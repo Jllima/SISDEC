@@ -47,6 +47,7 @@ class SisdecTipologiesController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+                        
 			$this->SisdecTipology->create();
 			if ($this->SisdecTipology->save($this->request->data)) {
 				$this->Session->setFlash(__('The sisdec tipology has been saved.'));

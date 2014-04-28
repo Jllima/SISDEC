@@ -24,6 +24,32 @@ class SisdecOccurrencesController extends AppController {
      *
      * @return void
      */
+    /*
+      public function isAuthorized($user) {
+      if (!parent::isAuthorized($user)) {
+      if ($this->action === 'add') {
+      // Todos os usuários registrados podem criar posts
+      return true;
+      }
+
+      if (in_array($this->action, array('edit', 'delete'))) {
+      $postId = (int) $this->request->params['pass'][0];
+      return $this->Post->isOwnedBy($postId, $user['id']);
+      }
+      }
+      if (parent::isAuthorized($user)) { //$user['role_id'] == 1
+      return true;
+      }
+      return false;
+      } */
+
+    public function linkBack(){
+        /*
+        $this->Session->write('redir', array('controller'=>$this->request->params['controller'], 'action'=>$this->request->params['action'], implode($this->request->params['pass'], '/')));*/
+        //$redir = $this->Session->read('redir');
+        $this->redirect($this->referer());
+    }
+    
     public function search() {
         // find sisdecSituations
         $situations = $this->SisdecOccurrence->SisdecSituation->find('list');
@@ -84,13 +110,13 @@ class SisdecOccurrencesController extends AppController {
           )))); */
         //$this->layout = false;
         $this->SisdecOccurrence->recursive = 0;
-        $options = array('fields' => array('SisdecOccurrence.protocolo', 'SisdecOccurrence.endereco_occurrence', 'SisdecNeighborhood.nome_neighborhood', 'SisdecSituation.status'));
-        $ocurrences = $this->SisdecOccurrence->find('all', $options);
+        //$options = array('fields' => array('SisdecOccurrence.protocolo', 'SisdecOccurrence.endereco_occurrence', 'SisdecNeighborhood.nome_neighborhood', 'SisdecSituation.status'));
+        $ocurrences = $this->SisdecOccurrence->find('all');
 
 
         $this->set(compact('ocurrences'));
 
-        //debug($ocurrences); 
+        debug($ocurrences);
     }
 
     /**
@@ -105,7 +131,9 @@ class SisdecOccurrencesController extends AppController {
             throw new NotFoundException(__('Invalid sisdec occurrence'));
         }
         $options = array('conditions' => array('SisdecOccurrence.' . $this->SisdecOccurrence->primaryKey => $id));
+        //debug($this->SisdecOccurrence->find('first', $options));
         $this->set('sisdecOccurrence', $this->SisdecOccurrence->find('first', $options));
+        
     }
 
     /**
@@ -114,11 +142,14 @@ class SisdecOccurrencesController extends AppController {
      * @return void
      */
     public function add() {
+
         if ($this->request->is('post')) {
+            //debug($this->request->data);exit;
             $this->SisdecOccurrence->create();
+            $this->request->data['SisdecOccurrence']['user_id'] = $this->Auth->user('id');
             if ($this->SisdecOccurrence->saveAssociated($this->request->data)) {
-                $this->Session->setFlash(__('A ocorrência foi cadastarda com sucesso!'));
-                return $this->redirect(array('action' => 'add'));
+                $this->Session->setFlash('A ocorrência foi cadastarda com sucesso! Verifique os dados', 'flash/flash_succes');
+                return $this->redirect(array('action' => 'view', $this->SisdecOccurrence->id));
             } else {
                 $this->Session->setFlash(__('The sisdec occurrence could not be saved. Please, try again.'));
             }

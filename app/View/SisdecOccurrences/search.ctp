@@ -14,13 +14,8 @@
             </div>
 
             <div id="teste" class="table-responsive " >
-
-
-
             </div>
-
         </div>
-
     </div>
 </div>
 

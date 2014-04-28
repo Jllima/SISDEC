@@ -3,6 +3,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">Ocorrência</div>
         <div class="panel-body">
+            
             <?php echo $this->Form->create('SisdecOccurrence'); ?>
             <fieldset>
                 <legend><?php echo __('Protocolo de ocorrência'); ?></legend>

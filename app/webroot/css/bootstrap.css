@@ -6146,7 +6146,7 @@ a.list-group-item.active:focus .list-group-item-text {
   box-shadow: 0 1px 0 #FFFFFF inset;
   height: 36px;
    padding: 10px 15px;
-  padding-left: 40px;
+  padding-left: 20px;
   position: relative;
 }
 .panel-heading > [class^="icon-"], .panel-heading > [class*=" icon-"], .panel-heading > [class^="clip-"], .panel-heading > [class*=" clip-"] {

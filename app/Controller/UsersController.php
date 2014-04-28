@@ -31,31 +31,34 @@ class UsersController extends AppController {
 
     public function login() {
         $this->layout = false;
-        $this->set('title_for_layout', __('Log in'));
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
-                return $this->redirect($this->Auth->redirect());
+
+                $this->Session->setFlash('Logado com sucesso', 'flash/flash_succes');
+                $this->redirect($this->Auth->loginRedirect);
             } else {
-                $this->Session->setFlash($this->Auth->authError, 'default', array(), 'auth');
+                $this->Session->setFlash('Sabe de nada Inocente', 'flash/flash_danger', array(), 'auth');
                 $this->redirect($this->Auth->loginAction);
             }
         }
     }
 
     public function admin_logout() {
-        $this->Session->setFlash(__('Deslogado com sucesso.'), 'default', array('class' => 'success'));
+        //$this->Session->setFlash(__('Deslogado com sucesso.'), 'default', array('class' => 'success'));
         $this->redirect($this->Auth->logout());
     }
 
     public function logout() {
-        $this->Session->setFlash(__('Deslogado com sucesso.'), 'default', array('class' => 'success'));
+
+        $this->Session->setFlash('Deslogado', 'flash/flash_succes',array(),'logout');
         $this->redirect($this->Auth->logout());
     }
 
     public function admin_index() {
         
     }
-    public function listar(){
+
+    public function listar() {
         $this->User->recursive = -1;
         $users = $this->User->find('all');
         //debug($users);

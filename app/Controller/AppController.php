@@ -32,12 +32,12 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
-    public $components = array('DebugKit.Toolbar', 'Session', 'Auth','RequestHandler');
-
-//public $helpers = array('Html', 'Form', 'Session');
+    public $components = array('DebugKit.Toolbar', 'Session', 'Auth', 'RequestHandler');
+     public $helpers = array('Html', 'Form', 'Session');
 
     public function beforeFilter() {
         //
+        //$this->response->disableCache();
         $this->Auth->authenticate = array(
             AuthComponent::ALL => array(
                 'userModel' => 'User',
@@ -71,19 +71,19 @@ class AppController extends Controller {
         //define o controller e a action para o login do usuario
         $this->Auth->loginRedirect = array(
             'plugin' => null,
-            'controller' => 'users',
-            'action' => 'index',
+            'controller' => 'home',
+            'action' => 'index'
         );
 
-        $this->Auth->authError = __('Você não possui autorização para executar esta ação.');
+        $this->Auth->authError = __('erro');
 
-        //$this->Auth->allow('index');
-        $this->Auth->allowedActions = array('display');
+        //$this->Auth->allow('login');
+        $this->Auth->allowedActions = array('display');  //allowedActions
     }
-
+    //metodo para controle de acesso
     public function isAuthorized($user) {
         //Somente o admin tem acesso a /admin/controller/action admin_add
-        if ($user['role_id'] == 1) { //!empty($this->request->params['admin']
+        if (isset($user['role_id']) && $user['role_id'] == 1) { //!empty($this->request->params['admin']  $user['role_id'] == 1
             return true; //$user['role_id'] == 1
         }
         return false;  //!empty($user)
