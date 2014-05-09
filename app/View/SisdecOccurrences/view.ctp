@@ -1,5 +1,4 @@
-<div class="col-occurrence">
-    <div class="panel panel-default">
+
         <div class="panel-heading">Descrição</div>
         <div class="panel-body">
             <?php echo $this->Session->flash(); ?>
@@ -90,8 +89,7 @@
             <a href="javascript:history.go(-1);">Voltar/a>
             <?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $sisdecOccurrence['SisdecOccurrence']['id'])); ?>
         </div>
-    </div>
-</div>
+
 
 
 

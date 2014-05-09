@@ -30,14 +30,14 @@ class UsersController extends AppController {
     }
 
     public function login() {
-        $this->layout = false;
+        $this->layout = 'login';
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
 
                 $this->Session->setFlash('Logado com sucesso', 'flash/flash_succes');
                 $this->redirect($this->Auth->loginRedirect);
             } else {
-                $this->Session->setFlash('Sabe de nada Inocente', 'flash/flash_danger', array(), 'auth');
+                $this->Session->setFlash('Login ou senha incorretos', 'flash/flash_danger', array(), 'auth');
                 $this->redirect($this->Auth->loginAction);
             }
         }
@@ -151,4 +151,14 @@ class UsersController extends AppController {
         return $this->redirect(array('action' => 'index'));
     }
 
+    public function listar() {
+        $this->User->id = $id;
+        if ($this->RequestHandler->isAjax()) {
+            $bairros = $this->SisdecOccurrence->SisdecNeighborhood->find('list', array('conditions' => array(
+                    'sisdec_place_id' => $this->params['url']['placeId']),
+                'recursive' => -1));
+            //debug($bairros);
+            $this->set(compact('bairros'));
+        }
+    }
 }

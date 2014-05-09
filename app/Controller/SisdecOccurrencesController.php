@@ -142,13 +142,13 @@ class SisdecOccurrencesController extends AppController {
      * @return void
      */
     public function add() {
-
+        
         if ($this->request->is('post')) {
             //debug($this->request->data);exit;
             $this->SisdecOccurrence->create();
             $this->request->data['SisdecOccurrence']['user_id'] = $this->Auth->user('id');
             if ($this->SisdecOccurrence->saveAssociated($this->request->data)) {
-                $this->Session->setFlash('A ocorrência foi cadastarda com sucesso! Verifique os dados', 'flash/flash_succes');
+                $this->Session->setFlash('A ocorrência foi cadastrada com sucesso! Verifique os dados', 'flash/flash_succes');
                 return $this->redirect(array('action' => 'view', $this->SisdecOccurrence->id));
             } else {
                 $this->Session->setFlash(__('The sisdec occurrence could not be saved. Please, try again.'));
@@ -185,9 +185,10 @@ class SisdecOccurrencesController extends AppController {
             throw new NotFoundException(__('Invalid sisdec occurrence'));
         }
         if ($this->request->is(array('post', 'put'))) {
-            if ($this->SisdecOccurrence->save($this->request->data)) {
-                $this->Session->setFlash(__('The sisdec occurrence has been saved.'));
-                return $this->redirect(array('action' => 'index'));
+            //debug($this->request->data);exit;
+            if ($this->SisdecOccurrence->saveAssociated($this->request->data)) {
+                $this->Session->setFlash(__('Editado com sucesso'));
+                return $this->redirect(array('action' => 'view',$this->SisdecOccurrence->id));
             } else {
                 $this->Session->setFlash(__('The sisdec occurrence could not be saved. Please, try again.'));
             }
