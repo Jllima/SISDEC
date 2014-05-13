@@ -4,10 +4,31 @@
 
     <div class="users form">
 
-
+        <?php echo $this->Session->flash(); ?>
         <?php echo $this->Form->create('User'); ?>
         <fieldset>
             <legend><?php echo __('Editar'); ?></legend>
+
+            <?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
+
+            <div class='row'>
+                <div class='col-sm-2'>
+                    <div class='form-group'>
+                        <label>Nome</label>
+                        <?php echo $this->Form->input('name', array('label' => false, 'placeholder' => 'Informe', 'class' => 'form-control', 'required')); ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col-sm-2'>
+                    <div class='form-group'>
+                        <label>Email</label>
+                        <?php echo $this->Form->input('email', array('label' => false, 'placeholder' => 'informe', 'class' => 'form-control', 'required')); ?>
+                    </div>
+                </div>
+            </div>
+
             <div class='row'>
                 <div class='col-sm-2'>
                     <div class='form-group'>
@@ -16,39 +37,36 @@
                     </div>
                 </div>
             </div>
+
             <div class='row'>
                 <div class='col-sm-2'>
                     <div class='form-group'>
                         <label>Usuário</label>
-
                         <?php echo $this->Form->input('username', array('label' => false, 'placeholder' => 'informe', 'class' => 'form-control', 'required')); ?>        
-
-
                     </div>
                 </div>
             </div>
+
             <div class='row'>
                 <div class='col-sm-2'>
                     <div class='form-group'>
                         <label>Senha</label>
 
-                        <?php echo $this->Form->input('password', array('label' => false, 'placeholder' => 'informe', 'class' => 'form-control', 'required')); ?>
-
-
+                        <?php echo $this->Form->input('password', array('label' => false, 'value' => '', 'placeholder' => 'informe', 'class' => 'form-control', 'required')); ?>
                     </div>
                 </div>
             </div>
+
             <div class='row'>
                 <div class='col-sm-2'>
                     <div class='form-group'>
-                        <label>Email</label>
-
-                        <?php echo $this->Form->input('email', array('label' => false, 'placeholder' => 'informe', 'class' => 'form-control', 'required')); ?>
-
-
+                        <label>Confirma senha</label>
+                        <?php echo $this->Form->input('password_confirm', array('value' => '', 'label' => false, 'placeholder' => 'informe', 'type' => 'password', 'class' => 'form-control', 'required')); ?>
                     </div>
                 </div>
             </div>
+
+
 
             <?php
             echo $this->Form->input('status');

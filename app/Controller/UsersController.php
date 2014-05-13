@@ -1,5 +1,4 @@
 <?php
-
 App::uses('AppController', 'Controller');
 
 /**
@@ -50,7 +49,7 @@ class UsersController extends AppController {
 
     public function logout() {
 
-        $this->Session->setFlash('Deslogado', 'flash/flash_succes',array(),'logout');
+        $this->Session->setFlash('Deslogado', 'flash/flash_succes', array(), 'logout');
         $this->redirect($this->Auth->logout());
     }
 
@@ -92,12 +91,13 @@ class UsersController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            //debug($this->request->data);exit;
             $this->User->create();
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('The user has been saved.'));
-                return $this->redirect(array('action' => 'index'));
+                $this->Session->setFlash('Usuario adicionado com sucesso', 'flash/flash_succes');
+                return $this->redirect(array('action' => 'view',$this->User->id));
             } else {
-                $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+                $this->Session->setFlash('Usuario não foi salvo', 'flash/flash_danger');
             }
         }
         $roles = $this->User->Role->find('list');
@@ -112,15 +112,17 @@ class UsersController extends AppController {
      * @return void
      */
     public function edit($id = null) {
+        
         if (!$this->User->exists($id)) {
             throw new NotFoundException(__('Invalid user'));
         }
         if ($this->request->is(array('post', 'put'))) {
+            //debug($this->request->data);exit;
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('The user has been saved.'));
-                return $this->redirect(array('action' => 'index'));
+                $this->Session->setFlash('Perfil editado com sucesso', 'flash/flash_succes');
+                return $this->redirect(array('action' => 'view',$this->User->id));
             } else {
-                $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+                $this->Session->setFlash('Edição falhou', 'flash/flash_danger');
             }
         } else {
             $options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
@@ -149,16 +151,13 @@ class UsersController extends AppController {
             $this->Session->setFlash(__('The user could not be deleted. Please, try again.'));
         }
         return $this->redirect(array('action' => 'index'));
-    }
-
-    public function listar() {
-        $this->User->id = $id;
-        if ($this->RequestHandler->isAjax()) {
-            $bairros = $this->SisdecOccurrence->SisdecNeighborhood->find('list', array('conditions' => array(
-                    'sisdec_place_id' => $this->params['url']['placeId']),
-                'recursive' => -1));
-            //debug($bairros);
-            $this->set(compact('bairros'));
         }
-    }
+     
+     
+   
+        
+     
+  
 }
+
+

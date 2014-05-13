@@ -23,6 +23,17 @@ class User extends AppModel {
     }
 
     public $validate = array(
+        'name' => array(
+            'notEmpty' => array(
+                'rule' => array('notEmpty'),
+            //'message' => 'Your custom message here',
+            //'allowEmpty' => false,
+            //'required' => false,
+            //'last' => false, // Stop validation after this rule
+            //'on' => 'create', // Limit validation to 'create' or 'update' operations
+            ),
+        ),
+        
         'role_id' => array(
             'numeric' => array(
                 'rule' => array('numeric'),
@@ -53,6 +64,13 @@ class User extends AppModel {
             //'on' => 'create', // Limit validation to 'create' or 'update' operations
             ),
         ),
+        'password_confirm' => array(
+            'required' => 'notEmpty',
+            'match' => array(
+                'rule' => 'validatePasswdConfirm',
+                'message' => 'as senhas não conferem'
+            )
+        ),
         'status' => array(
             'boolean' => array(
                 'rule' => array('boolean'),
@@ -81,5 +99,12 @@ class User extends AppModel {
             'order' => ''
         )
     );
+
+    public function validatePasswdConfirm($data) {
+        if ($this->data['User']['password'] !== $this->data['User']['password_confirm']) {
+            return false;
+        }
+        return true;
+    }
 
 }
