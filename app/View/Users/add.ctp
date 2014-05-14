@@ -1,5 +1,5 @@
 
-<div class="panel-heading">Adicionar usuários</div>
+<div class="panel-heading">usuários</div>
 <div class="panel-body">
 
 
