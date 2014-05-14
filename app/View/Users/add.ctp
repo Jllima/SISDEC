@@ -1,5 +1,5 @@
 
-<div class="panel-heading">Cadastro de usuários</div>
+<div class="panel-heading">usuários</div>
 <div class="panel-body">
 
 
