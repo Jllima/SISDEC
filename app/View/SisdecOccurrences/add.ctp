@@ -1,7 +1,7 @@
    
 
 
-<div class="panel-heading">Cadastrar ocorrência</div>
+<div class="panel-heading">ocorrência</div>
 <div class="panel-body">
 
     <?php echo $this->Form->create('SisdecOccurrence'); ?>
