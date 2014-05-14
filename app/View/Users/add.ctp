@@ -5,7 +5,7 @@
 
     <?php echo $this->Form->create('User'); ?>
     <fieldset>
-        <legend><?php echo __('Adicionar Usuário'); ?></legend>
+        <legend><?php echo __('Cadastar Usuário'); ?></legend>
 
         <div class='row'>
             <div class='col-sm-2'>
