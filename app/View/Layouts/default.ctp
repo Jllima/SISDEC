@@ -59,7 +59,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                 <h1><?php echo $this->Html->image('df5_70.png'); ?></h1>
             </div>
             <?php
-            if ($this->Session->read('Auth.User.id') == 17) {
+            if ($this->Session->read('Auth.User.id') == 1) {
                 echo $this->element('nav/nav_admin');
             } else {
                 echo $this->element('nav/nav_user');
