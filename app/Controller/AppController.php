@@ -75,7 +75,7 @@ class AppController extends Controller {
             'action' => 'index'
         );
 
-        $this->Auth->authError = __('erro');
+        $this->Auth->authError = __('Acesso negado');
 
         //$this->Auth->allow('login');
         $this->Auth->allowedActions = array('display');  //allowedActions

@@ -23,9 +23,10 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
     <head>
         <?php echo $this->Html->charset(); ?>
         <title> sisdec </title>
-        
+
         <?php
-        
+        echo $this->Session->flash();
+        echo $this->Session->flash('auth');
         echo $this->Html->meta('icon');
 
         //echo $this->Html->css('cake.generic');
@@ -68,7 +69,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 
             <div class="col-occurrence">
                 <div class="panel panel-default ">				
-                   
+
 
                     <?php echo $this->fetch('content'); ?>
 

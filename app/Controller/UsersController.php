@@ -1,4 +1,5 @@
 <?php
+
 App::uses('AppController', 'Controller');
 
 /**
@@ -22,6 +23,22 @@ class UsersController extends AppController {
      * @return void
      */
     //reescreve o metodo beforeFilter permitindo acesso a metodo add
+
+    public function isAuthorized($user) {
+        if (!parent::isAuthorized($user)) {
+            if (in_array($this->action, array('view','edit'))) {//$this->action === 'add'
+                //representa os parametros pssados dentro de um url
+                $userId = $this->request->params['pass'][0];
+                $userSession = $this->Auth->user('id');
+                return $this->User->isOwnedBy($userId, $user['id']);
+            }
+        } elseif (parent::isAuthorized($user)) { //$user['role_id'] == 1
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function beforeFilter() {
         //chama o metodo beforeFilter da classe pai
         parent::beforeFilter();
@@ -95,7 +112,7 @@ class UsersController extends AppController {
             $this->User->create();
             if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash('Usuario adicionado com sucesso', 'flash/flash_succes');
-                return $this->redirect(array('action' => 'view',$this->User->id));
+                return $this->redirect(array('action' => 'view', $this->User->id));
             } else {
                 $this->Session->setFlash('Usuario não foi salvo', 'flash/flash_danger');
             }
@@ -112,7 +129,7 @@ class UsersController extends AppController {
      * @return void
      */
     public function edit($id = null) {
-        
+
         if (!$this->User->exists($id)) {
             throw new NotFoundException(__('Invalid user'));
         }
@@ -120,13 +137,14 @@ class UsersController extends AppController {
             //debug($this->request->data);exit;
             if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash('Perfil editado com sucesso', 'flash/flash_succes');
-                return $this->redirect(array('action' => 'view',$this->User->id));
+                return $this->redirect(array('action' => 'view', $this->User->id));
             } else {
                 $this->Session->setFlash('Edição falhou', 'flash/flash_danger');
             }
         } else {
             $options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
             $this->request->data = $this->User->find('first', $options);
+            //debug($this->request->data);
         }
         $roles = $this->User->Role->find('list');
         $this->set(compact('roles'));
@@ -151,13 +169,6 @@ class UsersController extends AppController {
             $this->Session->setFlash(__('The user could not be deleted. Please, try again.'));
         }
         return $this->redirect(array('action' => 'index'));
-        }
-     
-     
-   
-        
-     
-  
+    }
+
 }
-
-

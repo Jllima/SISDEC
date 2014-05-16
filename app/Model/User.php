@@ -8,7 +8,7 @@ App::uses('AppModel', 'Model');
  * @property Role $Role
  */
 class User extends AppModel {
-
+    
     /**
      * Validation rules
      *
@@ -22,6 +22,10 @@ class User extends AppModel {
         return true;
     }
 
+    public function isOwnedBy($userId,$userSession) {
+        return $userSession === $userId;
+    }
+
     public $validate = array(
         'name' => array(
             'notEmpty' => array(
@@ -33,7 +37,6 @@ class User extends AppModel {
             //'on' => 'create', // Limit validation to 'create' or 'update' operations
             ),
         ),
-        
         'role_id' => array(
             'numeric' => array(
                 'rule' => array('numeric'),

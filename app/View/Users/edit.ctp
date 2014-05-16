@@ -28,16 +28,16 @@
                     </div>
                 </div>
             </div>
-
-            <div class='row'>
-                <div class='col-sm-2'>
-                    <div class='form-group'>
-                        <label>Função</label>
-                        <?php echo $this->Form->input('role_id', array('label' => false, 'empty' => 'Informe', 'class' => 'form-control', 'required')); ?>
+            <?php if ($this->Session->read('Auth.User.role_id') == 1) { ?>
+                <div class='row'>
+                    <div class='col-sm-2'>
+                        <div class='form-group'>
+                            <label>Função</label>
+                            <?php echo $this->Form->input('role_id', array('label' => false, 'empty' => 'Informe', 'class' => 'form-control', 'required')); ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            <?php } ?>
             <div class='row'>
                 <div class='col-sm-2'>
                     <div class='form-group'>
@@ -69,7 +69,9 @@
 
 
             <?php
-            echo $this->Form->input('status');
+            if ($this->Session->read('Auth.User.role_id') == 1) {
+                echo $this->Form->input('status');
+            }
             ?>
         </fieldset>
         <?php echo $this->Form->button('<i class="fa fa-save"></i> Salvar', array('class' => 'btn btn-success')); ?>

@@ -5,10 +5,14 @@
         <group>
             <file>file:/C:/wamp/www/estagio/app/Controller/SisdecOccurrencesController.php</file>
             <file>file:/C:/wamp/www/estagio/app/View/Users/edit.ctp</file>
+            <file>file:/C:/wamp/www/estagio/app/View/Elements/nav/nav_user.ctp</file>
+            <file>file:/C:/wamp/www/estagio/app/Controller/HomeController.php</file>
             <file>file:/C:/wamp/www/estagio/app/Model/User.php</file>
+            <file>file:/C:/wamp/www/estagio/app/Controller/AppController.php</file>
             <file>file:/C:/wamp/www/estagio/app/Controller/UsersController.php</file>
-            <file>file:/C:/wamp/www/estagio/app/View/Users/add.ctp</file>
-            <file>file:/C:/wamp/www/estagio/app/View/SisdecOccurrences/add.ctp</file>
+            <file>file:/C:/wamp/www/estagio/app/View/Helper/AppHelper.php</file>
+            <file>file:/C:/wamp/www/estagio/app/View/Layouts/default.ctp</file>
+            <file>file:/C:/wamp/www/estagio/app/config/routes.php</file>
         </group>
     </open-files>
 </project-private>

@@ -26,15 +26,7 @@ class SisdecOccurrencesController extends AppController {
      */
     public function isAuthorized($user) {
         if (!parent::isAuthorized($user)) {
-            //if ($this->action === 'add') {
-                // Todos os usuários registrados podem criar posts
-                return true;
-            //}
-
-            /* if (in_array($this->action, array('edit', 'delete'))) {
-              $postId = (int) $this->request->params['pass'][0];
-              return $this->Post->isOwnedBy($postId, $user['id']);
-              } */
+            return true;
         } elseif (parent::isAuthorized($user)) { //$user['role_id'] == 1
             return true;
         } else {

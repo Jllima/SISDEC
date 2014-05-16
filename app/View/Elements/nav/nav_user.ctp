@@ -33,7 +33,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $this->Session->read('Auth.User.username'); ?> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <?php echo $this->Html->link(__('<i class="fa fa-book"></i>   Perfil'), array('controller' => 'users', 'action' => 'edit', $this->Session->read('Auth.User.id')), array('escape' => false)); ?>
+                            <?php echo $this->Html->link(__('<i class="fa fa-book"></i>   Perfil'), array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')), array('escape' => false)); ?>
                         </li>
 
                         <li>
